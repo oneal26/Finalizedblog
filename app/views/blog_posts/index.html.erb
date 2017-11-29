@@ -1,0 +1,32 @@
+<h1>Welcome <%= current_user.username %> </h1>
+
+<div class="row">
+	<% @blog_posts.each do |blog_post| %>
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<%= link_to blog_post.title, blog_post %>
+					</div>
+					<div class="panel-body">
+						by <%= link_to blog_post.user.username, user_posts_path(name: blog_post.user.username) %><br>
+						<p><i>Created: <%= blog_post.created_at.strftime('%m/%d/%Y at %I:%M%p') %></i></p>
+						<p><%= blog_post.blog_entry.truncate(50).html_safe %>
+							<% if blog_post.blog_entry.size > 50 %>
+									...<%= link_to "Read More", blog_post_path(blog_post) %>
+							 <% end %>
+					    </p>
+					</div>
+					<div class="panel-footer">
+						<% if current_user.id == blog_post.user_id %>
+						<%= link_to "Edit", edit_blog_post_path(blog_post), class: "btn btn-warning" %>
+						<%= link_to "Destroy", blog_post_path(blog_post), method: :delete, data: { confirm: "Are You Sure"}, class: "btn btn-danger" %>
+						<% end %>
+					</div>
+				</div>
+			</div>
+	<% end %>
+</div>
+
+<%= paginate @blog_posts %>
+
+
