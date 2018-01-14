@@ -1,5 +1,7 @@
 <h1>Welcome <%= current_user.username %> </h1>
 
+
+
 <div class="row">
 	<% @blog_posts.each do |blog_post| %>
 			<div class="col-md-12">
@@ -28,5 +30,8 @@
 </div>
 
 <%= paginate @blog_posts %>
+
+
+
 
 
